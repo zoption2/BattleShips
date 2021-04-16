@@ -15,5 +15,10 @@ public abstract class Monster : MonoBehaviour, ITargetable
     {
         return this.gameObject;
     }
+
+    public Team GetTeam()
+    {
+        throw new System.NotImplementedException();
+    }
 }
 

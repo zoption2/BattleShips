@@ -17,6 +17,7 @@ public abstract class Ship : MonoBehaviour
     protected MoveControl _move;
     protected Cannoneer cannoneer;
     private Rigidbody _rigidbody;
+    private List<MonoBehaviour> allComponents;
 
     [Range(0f, 1f)]
     private float power = 0f;
@@ -31,6 +32,18 @@ public abstract class Ship : MonoBehaviour
     {
         cannoneer = new Cannoneer(this);
     }
+
+    private void ConnectWithShipComponents()
+    {
+        allComponents = new List<MonoBehaviour>();
+        var components = GetComponents<IShipComponent>();
+        foreach (IShipComponent component in components)
+        {
+            component.SetupMotherShip(this);
+            // add component to list
+        }
+    }
+
 
     private void Start()
     {
