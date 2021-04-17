@@ -4,19 +4,14 @@ using UnityEngine;
 
 public abstract class Ship : MonoBehaviour
 {
-    public Rigidbody Rigidbody { get { return _rigidbody; } set { _rigidbody = value; } }
-    public Transform Transform { get { return transform; }}
     public ShipStats Stats {get { return stats; } protected set { stats = value; } }
-    public Vector3 Position {get { return transform.position; } set { transform.position = value; } }
-    public Quaternion Rotation {get { return transform.rotation; } set { transform.rotation = value; } }
-
 
     public string ShipID { get; private set; }
 
     protected ShipStats stats;
     protected MoveControl _move;
     protected Cannoneer cannoneer;
-    private Rigidbody _rigidbody;
+
     private List<MonoBehaviour> allComponents;
 
     [Range(0f, 1f)]
@@ -48,7 +43,6 @@ public abstract class Ship : MonoBehaviour
     private void Start()
     {
         ShipID = gameObject.GetInstanceID().ToString();
-        InitRigidbody();
         InitController();
         InitStats();
         InitCannoneer();
@@ -75,12 +69,5 @@ public abstract class Ship : MonoBehaviour
         cannoneer.Shoot(boardSide, power);
     }
 
-    private void InitRigidbody()
-    {
-        TryGetComponent<Rigidbody>(out _rigidbody);
-        if (!_rigidbody)
-        {
-            Debug.LogError("No rigidbody at " + this);
-        }
-    }
+
 }
