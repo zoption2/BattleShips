@@ -2,15 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Cannoneer
+public class Cannoneer : MonoBehaviour, IShipComponent
 {
     public Cannoneer(Ship ship)
     {
-        this.ship = ship;
-        InitArtillery();
-        spawner = Pool.Instance;
-        prefabHolder = PrefabHolder.Instance;
-        RegistrPoolOfProjectiles();
+
     }
 
     private Ship ship;
@@ -51,7 +47,7 @@ public class Cannoneer
 
     private void InitArtillery()
     {
-        var artHolder = ship.Transform.Find(ART);
+        var artHolder = transform.Find(ART);
         Artillery[] allArt = artHolder.GetComponentsInChildren<Artillery>();
 
         artillery = new Dictionary<BoardSide, Artillery[]>();
@@ -70,5 +66,18 @@ public class Cannoneer
             Artillery[] convertedArray = sameSideArtillery.ToArray();
             artillery.Add(board, convertedArray);
         }
+    }
+
+    public void SetupMotherShip(Ship mothership)
+    {
+        ship = mothership;
+    }
+
+    public void DoLocalSetups()
+    {
+        InitArtillery();
+        spawner = Pool.Instance;
+        prefabHolder = PrefabHolder.Instance;
+        RegistrPoolOfProjectiles();
     }
 }

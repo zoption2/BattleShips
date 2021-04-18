@@ -11,11 +11,13 @@ public class ShipStats
 
     public string ShipID { get { return shipID; }}
     public Team Team { get { return team; } set { team = value; } }
-    public float Speed { get { return speed; }}
+    public float Speed { get { return speed; } set { speed = value; } }
     public float RotationSpeed { get { return rotationSpeed; }}
+    public float RadiusOfVision {get { return radiusOfVision; } set { radiusOfVision = value; } }
 
     private string shipID;
-    private float speed = 2;
-    private float rotationSpeed = 1;
+    private float speed = 2f;
+    private float rotationSpeed = 1f;
+    private float radiusOfVision = 10f;
     private Team team;
 }
